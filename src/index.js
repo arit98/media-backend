@@ -1,23 +1,36 @@
-import express from "express";
-import bodyParser from "body-parser";
-import routes from "./routes/users.routes";
+import dotenv from "dotenv";
+import { connectDB } from "./db/index";
 
-// connecting database
-import "./db/db";
-
-const app = express();
-
-const port = 3000 | process.env.PORT;
-
-// adding middlewares
-app.use(bodyParser.json());
-// adding routes
-app.use("/api/user", routes);
-// adding HTML
-app.use(express.static("public"));
-
-
-
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+dotenv.config({
+  path: "./.env",
 });
+
+connectDB()
+  .then(() => {
+    console.log(`⚙️ Server is running at port: ${process.env.PORT}`);
+  })
+  .catch((error) => {
+    console.log("MongoDB connection failed !!! ", error);
+  });
+
+/*
+import express from "express";
+const app = express(); 
+
+(async () => {
+  try {
+    await mongoose.connect(`${process.env.DATABASE_URI}/${DATABASE_NAME}`);
+    app.on("error", (error) => {
+      console.log("ERR: ", error);
+      throw error;
+    });
+
+    app.listen(process.env.PORT, () => {
+      console.log(`App is listening on port ${process.env.PORT}`);
+    });
+  } catch (error) {
+    console.log("ERR: ", error);
+    throw error;
+  }
+})();
+*/
