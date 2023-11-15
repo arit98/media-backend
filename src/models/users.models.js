@@ -2,18 +2,14 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      primary: true
-    },
-    watchHistory: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Video",
-    },
     username: {
       type: String,
       required: true,
       unique: true,
+    },
+    watchHistory: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Video",
     },
     email: {
       type: String,
