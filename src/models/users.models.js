@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -6,36 +8,55 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
+      trim: true,
+      index: true,
     },
-    watchHistory: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Video",
-    },
+    watchHistory: [
+      { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: "Video" 
+      }
+    ],
     email: {
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
+      trim: true,
     },
     fullName: {
       type: String,
       required: true,
+      trim: true,
+      index: true,
     },
     avatar: {
-      type: String,
+      type: String, //couldinary url
+      required: true,
     },
     coverImage: {
       type: String,
     },
     password: {
       type: String,
-      required: ["password must be in 8 charecters"],
+      required: [true, "password must be in 8 charecters"],
     },
     refreshToken: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }
 );
+
+userSchema.pre("save", async function(next){
+  if(!this.isModified("password")) return next();
+  this.password = bcrypt.hash(this.password, 10)
+  next()
+})
+
+userSchema.methods.isPasswordCorrect = async function(password){
+  return await bcrypt.compare(password, this.password)
+}
 
 export const User = mongoose.model("User", userSchema);
