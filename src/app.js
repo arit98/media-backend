@@ -1,11 +1,12 @@
 import express from "express";
-import cros from "cros";
-import { urlencoded } from "body-parser";
+import cors from "cors";
+import bodyParser from "body-parser";
+const { urlencoded } = bodyParser;
 
 const app = express();
 
 app.use(
-  cros({
+  cors({
     origin: process.env.URL_ORIGIN,
     Credential: true,
   })
