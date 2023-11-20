@@ -27,4 +27,9 @@ app.use(
 
 app.use(express.static("public"));
 
+// import routes
+import userRouter from "./routes/users.routes"
+
+app.use("/api/v1/users", userRouter)
+
 export { app };
