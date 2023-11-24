@@ -25,10 +25,10 @@ app.use(
   })
 );
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 // import routes
-import userRouter from "./routes/users.routes"
+import userRouter from "./routes/users.routes.js"
 
 app.use("/api/v1/users", userRouter)
 
