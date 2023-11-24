@@ -1,1 +1,1 @@
-export const DATABASE_NAME = "media-backend"
+export const DB_NAME = "media-backend"
