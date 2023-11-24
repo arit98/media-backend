@@ -1,7 +1,7 @@
 {
-  "name": "chai-backend",
+  "name": "media-backend",
   "version": "1.0.0",
-  "description": "a backend at chai aur code channel - youtube",
+  "description": "media backend",
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -10,9 +10,12 @@
   "keywords": [
     "javascript",
     "backend",
-    "chai"
+    "node",
+    "express",
+    "mongo",
+    "MEN"
   ],
-  "author": "Hitesh Choudhary",
+  "author": "Aritra Das Chowdhury",
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^3.0.1",
